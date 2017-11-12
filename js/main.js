@@ -2,6 +2,7 @@ var withholder = new Withholder();
 
 $('#TaxableIncomeInput').on('input', function () {
     window.taxableIncome = stripwhitecommas($(this).val());
+    window.periods = 1;
     window.FY = stripwhitecommas($('#FinancialYearInput').val());
     calculate();
 });
@@ -18,10 +19,9 @@ function editSettings() {
 
 function calculate() {
   $("#TaxableIncomeOutput").html(moneyNumber(window.taxableIncome));
-  var withholding = withholder.calculateTaxWithholding(window.taxableIncome, window.FY);
+  var withholding = withholder.calculateTaxWithholding(window.taxableIncome,window.periods, window.FY);
 
   $("#WithholdingVal").html(moneyNumber(withholding));
-
   
 }
 
@@ -54,6 +54,7 @@ function main() {
   $("#FinancialYearInput").attr({"max": window.endFY.format("YYYY")});
 
   window.taxableIncome = 50000;
+  window.periods = 1;
   window.FY = 2017;
   calculate();
 }

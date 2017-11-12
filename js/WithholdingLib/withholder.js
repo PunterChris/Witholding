@@ -67,13 +67,42 @@
 
   Withholder.prototype = {
 
-    calculateTaxWithholding: function (taxableIncome, year) {
-      return 5000;
+    calculateTaxWithholding: function (taxableIncome, yearPeriods, year) {
+      var weeklyIncome = taxableIncome/52
+      var a,b;
+
+      if (weeklyIncome < 355) { 
+        a = 0;
+        b = 0;
+      } else if (weeklyIncome < 416) { 
+        a = 0.19;
+        b = 67.4635;
+      } else if (weeklyIncome < 520) { 
+        a = 0.29;
+        b = 109.1077;
+      } else if (weeklyIncome < 711) { 
+        a = 0.21;
+        b = 67.4646;
+      } else if (weeklyIncome < 1282) { 
+        a = 0.3477;
+        b = 165.4435;
+      } else if (weeklyIncome < 1673) { 
+        a = 0.3450;
+        b = 161.9819;
+      } else if (weeklyIncome < 3461) { 
+        a = 0.39;
+        b = 237.2704;
+      } else { 
+        a = 0.47;
+        b = 514.1935;
+      } 
+
+      return this.round((a*(Math.floor(weeklyIncome) + 0.99) - b)*52,0);
 
 		},
 
     round: function(value, decimals) {
-  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+      return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 		}
 
   };
