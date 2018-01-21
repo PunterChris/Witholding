@@ -45,7 +45,7 @@
 										<label for="c2">Taxable Income</label>
 										<div class="input-group"> 
 												<span class="input-group-addon">$</span>
-                        <input type="number" value="50000" min="0" step="1000" data-number-to-fixed="0" data-number-stepfactor="100" class="form-control currency" id="TaxableIncomeInput" onclick="this.select()" />
+                        <input type="number" value="50000" min="0" data-number-to-fixed="0" data-number-stepfactor="100" class="form-control currency" id="TaxableIncomeInput" onclick="this.select()" />
 										</div> 
                 </div>
                 </div>
@@ -62,21 +62,21 @@
 							<div class="row">
 							<div class="col-sm-2"></div>
 							<div class="col-sm-8">
-               <div class="btn-group btn-group-justified">
+               <div class="btn-group btn-group-justified" id="selectPeriod">
                       <div class="btn-group btn-group-lg">
-                        <button type="button" class="btn btn-primary btn-lg btn-block month active-month selected-month" id="24month">Weekly</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block month" onclick="ChangeTime(52);" id="24month">Weekly</button>
                       </div>
                       <div class="btn-group btn-group-lg">
-                        <button type="button" class="btn btn-primary btn-lg btn-block month active-month selected-month" id="24month">Fortnightly</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block month" onclick="ChangeTime(26);" id="24month">Fortnightly</button>
                       </div>
                       <div class="btn-group btn-group-lg">
-                        <button type="button" class="btn btn-primary btn-lg btn-block month" id="18month">Monthly</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block month" onclick="ChangeTime(12);" id="18month">Monthly</button>
                       </div>
                       <div class="btn-group btn-group-lg">
-                        <button type="button" class="btn btn-primary btn-lg btn-block month" id="12month">Quarterly</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block month" onclick="ChangeTime(4);" id="12month">Quarterly</button>
                       </div>
                       <div class="btn-group btn-group-lg">
-                        <button type="button" class="btn btn-primary btn-lg btn-block month" id="12month">Annually</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block month active" onclick="ChangeTime(1);" id="12month">Annually</button>
                       </div>
                     </div> 
                 

@@ -2,7 +2,6 @@ var withholder = new Withholder();
 
 $('#TaxableIncomeInput').on('input', function () {
     window.taxableIncome = stripwhitecommas($(this).val());
-    window.periods = 1;
     window.FY = stripwhitecommas($('#FinancialYearInput').val());
     calculate();
 });
@@ -15,6 +14,11 @@ $('#settingsModal').on('hidden.bs.modal', function () {
 });
 
 function editSettings() {
+}
+
+function ChangeTime(periods) {
+  console.log(periods);
+  window.periods = periods;
 }
 
 function calculate() {
@@ -52,6 +56,17 @@ function main() {
   window.startFY = moment(window.now.subtract(1, 'years').add(1,'days'));
   $("#FinancialYearInput").val(window.endFY.format("YYYY"));
   $("#FinancialYearInput").attr({"max": window.endFY.format("YYYY")});
+
+	var btnContainer = document.getElementById("selectPeriod");
+	var btns = btnContainer.getElementsByClassName("btn");
+	for (var i = 0; i < btns.length; i++) {
+		btns[i].addEventListener("click", function() {
+			var current = document.getElementsByClassName("active");
+			current[0].className = current[0].className.replace(" active", "");
+			this.className += " active";
+			calculate();
+		});
+	} 
 
   window.taxableIncome = 50000;
   window.periods = 1;

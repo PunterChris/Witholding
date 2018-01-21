@@ -68,41 +68,50 @@
   Withholder.prototype = {
 
     calculateTaxWithholding: function (taxableIncome, yearPeriods, year) {
-      var weeklyIncome = taxableIncome/52
+      var weeklyIncome = taxableIncome*yearPeriods/52
       var a,b;
 
-      if (weeklyIncome < 355) { 
-        a = 0;
-        b = 0;
-      } else if (weeklyIncome < 416) { 
-        a = 0.19;
-        b = 67.4635;
-      } else if (weeklyIncome < 520) { 
-        a = 0.29;
-        b = 109.1077;
-      } else if (weeklyIncome < 711) { 
-        a = 0.21;
-        b = 67.4646;
-      } else if (weeklyIncome < 1282) { 
-        a = 0.3477;
-        b = 165.4435;
-      } else if (weeklyIncome < 1673) { 
-        a = 0.3450;
-        b = 161.9819;
-      } else if (weeklyIncome < 3461) { 
-        a = 0.39;
-        b = 237.2704;
-      } else { 
-        a = 0.47;
-        b = 514.1935;
-      } 
+      this.coefficients(weeklyIncome, year, 0)
 
-      return this.round((a*(Math.floor(weeklyIncome) + 0.99) - b)*52,0);
+
+      return this.round((this.a*(Math.floor(weeklyIncome) + 0.99) - this.b)*52/yearPeriods,0);
 
 		},
 
     round: function(value, decimals) {
       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+		}, 
+
+    coefficients: function(weeklyIncome, year, settings) {
+      if (year == 2018){
+      } else {
+        if (weeklyIncome < 355) { 
+          this.a = 0;
+          this.b = 0;
+        } else if (weeklyIncome < 416) { 
+          this.a = 0.19;
+          this.b = 67.4635;
+        } else if (weeklyIncome < 520) { 
+          this.a = 0.29;
+          this.b = 109.1077;
+        } else if (weeklyIncome < 711) { 
+          this.a = 0.21;
+          this.b = 67.4646;
+        } else if (weeklyIncome < 1282) { 
+          this.a = 0.3477;
+          this.b = 165.4435;
+        } else if (weeklyIncome < 1673) { 
+          this.a = 0.3450;
+          this.b = 161.9819;
+        } else if (weeklyIncome < 3461) { 
+          this.a = 0.39;
+          this.b = 237.2704;
+        } else { 
+          this.a = 0.47;
+          this.b = 514.1935;
+        } 
+      }
+
 		}
 
   };
