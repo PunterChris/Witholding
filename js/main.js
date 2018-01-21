@@ -10,10 +10,12 @@ $('#FinancialYearInput').on('input', function () {
     calculate();
 });
 $('#settingsModal').on('hidden.bs.modal', function () {
-    editSettings();
+    calculate();
 });
 
-function editSettings() {
+function checkSettings() {
+  window.settings.threshold = document.getElementById("threshold").checked
+  window.settings.hecs = document.getElementById("hecs").checked
 }
 
 function ChangeTime(periods) {
@@ -22,8 +24,9 @@ function ChangeTime(periods) {
 }
 
 function calculate() {
+  checkSettings();
   $("#TaxableIncomeOutput").html(moneyNumber(window.taxableIncome));
-  var withholding = withholder.calculateTaxWithholding(window.taxableIncome,window.periods, window.FY);
+  var withholding = withholder.calculateTaxWithholding(window.taxableIncome,window.periods, window.FY, window.settings);
 
   $("#WithholdingVal").html(moneyNumber(withholding));
   
@@ -47,6 +50,7 @@ function formatcomma(element) {
 
 function main() {
   window.now = moment();
+  window.settings = {};
   if (window.now.month() < 6) {
     window.now.set('year', now.year() -1);
   }

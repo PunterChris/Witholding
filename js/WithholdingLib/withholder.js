@@ -67,11 +67,11 @@
 
   Withholder.prototype = {
 
-    calculateTaxWithholding: function (taxableIncome, yearPeriods, year) {
+    calculateTaxWithholding: function (taxableIncome, yearPeriods, year, settings) {
       var weeklyIncome = taxableIncome*yearPeriods/52
       var a,b;
 
-      this.coefficients(weeklyIncome, year, 0)
+      this.coefficients(weeklyIncome, year, settings)
 
 
       return this.round((this.a*(Math.floor(weeklyIncome) + 0.99) - this.b)*52/yearPeriods,0);
@@ -83,8 +83,9 @@
 		}, 
 
     coefficients: function(weeklyIncome, year, settings) {
-      if (year == 2018){
-      } else {
+      if (settings.threshold){
+        //Coefficients for 2017 Claiming Threshold
+        console.log("Threshold")
         if (weeklyIncome < 355) { 
           this.a = 0;
           this.b = 0;
@@ -109,6 +110,28 @@
         } else { 
           this.a = 0.47;
           this.b = 514.1935;
+        } 
+      } else {
+        //Coefficients for 2017 not claiming Threshold
+        console.log("NoThreshold")
+        if (weeklyIncome < 66) { 
+          this.a = 0.19;
+          this.b = 0.19;
+        } else if (weeklyIncome < 361) { 
+          this.a = 0.2337;
+          this.b = 2.9035;
+        } else if (weeklyIncome < 932) { 
+          this.a = 0.3477;
+          this.b = 44.1189;
+        } else if (weeklyIncome < 1323) { 
+          this.a = 0.3450;
+          this.b = 41.6024;
+        } else if (weeklyIncome < 3111) { 
+          this.a = 0.3900;
+          this.b = 101.1408;
+        } else { 
+          this.a = 0.47;
+          this.b = 350.0639;
         } 
       }
 
