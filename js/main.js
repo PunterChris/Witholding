@@ -74,7 +74,7 @@ function main() {
 
   window.taxableIncome = 50000;
   window.periods = 1;
-  window.FY = 2017;
+  window.FY = 2018;
   calculate();
 }
 main();
