@@ -1,5 +1,5 @@
 /*
-* EstimatorJS 0.0.1 - Australian Tax Payable Estimator
+* WithholderJS 0.1.1 - Australian Tax Withholdng Estimator
 * Copyright (c) 2017 Sean Darcy (Darcys22@gmail.com)
 * Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 *
@@ -78,11 +78,11 @@
       var hecs = 0
 
       if (settings.hecs){
-        hecs = this.hecscalc(weeklyIncome, year);
+        hecs = (this.hecscalc(weeklyIncome, year)*52/yearPeriods);
       }
       console.log("Amount: " + (withholding+hecs) + ", Withholding: " + withholding + ", HECS: " + hecs);
 
-      return this.round((this.a*(Math.floor(weeklyIncome) + 0.99) - this.b)*52/yearPeriods,0);
+      return this.round(withholding + hecs,0);
 
 		},
 
