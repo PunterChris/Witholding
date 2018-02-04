@@ -73,6 +73,14 @@
 
       this.coefficients(weeklyIncome, year, settings)
 
+      var withholding = (this.a*(Math.floor(weeklyIncome) + 0.99) - this.b)*52/yearPeriods;
+
+      var hecs = 0
+
+      if (settings.hecs){
+        hecs = this.hecscalc(weeklyIncome, year);
+      }
+      console.log("Amount: " + (withholding+hecs) + ", Withholding: " + withholding + ", HECS: " + hecs);
 
       return this.round((this.a*(Math.floor(weeklyIncome) + 0.99) - this.b)*52/yearPeriods,0);
 
@@ -82,10 +90,37 @@
       return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 		}, 
 
+    hecscalc: function(weeklyIncome, year) {
+      var amount = 0;
+
+      if (weeklyIncome < 1073.99) { 
+        amount = 0;
+      } else if (weeklyIncome < 1195.99) { 
+        amount = weeklyIncome * 0.04;
+      } else if (weeklyIncome < 1318.99) { 
+        amount = weeklyIncome * 0.045;
+      } else if (weeklyIncome < 1387.99) { 
+        amount = weeklyIncome * 0.05;
+      } else if (weeklyIncome < 1491.99) { 
+        amount = weeklyIncome * 0.055;
+      } else if (weeklyIncome < 1615.99) { 
+        amount = weeklyIncome * 0.06;
+      } else if (weeklyIncome < 1700.99) { 
+        amount = weeklyIncome * 0.065;
+      } else if (weeklyIncome < 1871.99) { 
+        amount = weeklyIncome * 0.07;
+      } else if (weeklyIncome < 1994.99) { 
+        amount = weeklyIncome * 0.075;
+      } else { 
+        amount = weeklyIncome * 0.08;
+      } 
+
+      return amount;
+		}, 
+
     coefficients: function(weeklyIncome, year, settings) {
       if (settings.threshold){
         //Coefficients for 2017 Claiming Threshold
-        console.log("Threshold")
         if (weeklyIncome < 355) { 
           this.a = 0;
           this.b = 0;
@@ -113,7 +148,6 @@
         } 
       } else {
         //Coefficients for 2017 not claiming Threshold
-        console.log("NoThreshold")
         if (weeklyIncome < 66) { 
           this.a = 0.19;
           this.b = 0.19;

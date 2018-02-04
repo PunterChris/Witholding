@@ -51,9 +51,9 @@ function formatcomma(element) {
 function main() {
   window.now = moment();
   window.settings = {};
-  if (window.now.month() < 6) {
-    window.now.set('year', now.year() -1);
-  }
+  //if (window.now.month() < 6) {
+    //window.now.set('year', now.year() -1);
+  //}
   window.now.set('month', 5);
   window.now.set('date', 30);
   window.endFY = moment(window.now);
