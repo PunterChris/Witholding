@@ -51,13 +51,13 @@ function formatcomma(element) {
 function main() {
   window.now = moment();
   window.settings = {};
-  //if (window.now.month() < 6) {
-    //window.now.set('year', now.year() -1);
-  //}
-  window.now.set('month', 5);
-  window.now.set('date', 30);
-  window.endFY = moment(window.now);
-  window.startFY = moment(window.now.subtract(1, 'years').add(1,'days'));
+  if (window.now.month() < 6) {
+    window.now.set('year', now.year() -1);
+  }
+  window.now.set('month', 6);
+  window.now.set('date', 1);
+  window.startFY = moment(window.now);
+  window.endFY = moment(window.now.add(1, 'years').subtract(1,'days'));
   $("#FinancialYearInput").val(window.endFY.format("YYYY"));
   $("#FinancialYearInput").attr({"max": window.endFY.format("YYYY")});
 
